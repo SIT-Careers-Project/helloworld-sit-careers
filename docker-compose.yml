@@ -1,0 +1,64 @@
+version: "3.7"
+services:
+
+  front-end:
+    image: node:14-alpine
+    working_dir: /app
+    container_name: front-end
+    restart: always
+    command: "yarn dev"
+    volumes:
+        - ./front-end:/app
+    ports:
+        - 3000:3000
+    depends_on:
+        - yarn-install
+    networks:
+        - helloworldsitcareers
+
+  yarn-install:
+    image: node:14-alpine
+    working_dir: /app
+    command: "yarn install"
+    container_name: yarn-install
+    volumes:
+        - ./front-end:/app
+    networks:
+      - helloworldsitcareers
+    
+  composer:
+    image: kaotu/image-laravel:latest
+    container_name: composer
+    command: >
+        sh -c "chmod 775 -R /var/www/html &&
+                chmod 775 -R /var/www/html/storage/logs &&
+                composer update --no-scripts &&
+                composer install --no-scripts"
+    working_dir: /var/www/html
+    volumes:
+        - ./back-end:/var/www/html
+    networks:
+      - helloworldsitcareers
+
+  back-end:
+    image: kaotu/image-laravel:latest
+    command: >
+        sh -c "chmod 775 -R /var/www/html &&
+                chmod 775 -R /var/www/html/storage/logs &&
+                php artisan key:generate &&
+                php artisan config:clear &&
+                php artisan serve --host=0.0.0.0 --port=8000"
+    container_name: back-end
+    restart: always
+    volumes:
+        - ./back-end:/var/www/html
+    ports:
+        - "8000:8000"
+    depends_on:
+        - composer
+    networks:
+      - helloworldsitcareers
+
+networks:
+  helloworldsitcareers:
+    driver: bridge
