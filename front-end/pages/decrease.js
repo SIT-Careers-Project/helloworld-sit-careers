@@ -14,7 +14,7 @@ const Decrease = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  value: state.value.value
+  value: state.decreaseNumberValue.decreaseNumberValue
 })
 
 const mapDispatchToProps = (dispatch) => {
