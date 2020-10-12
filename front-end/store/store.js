@@ -3,6 +3,7 @@ import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
 import word from './changeWord/reducer'
 import decreaseNumberValue from './decreaseNumber/reducer'
+import counter from './countNumber/reducer'
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -15,7 +16,8 @@ const bindMiddleware = (middleware) => {
 const combinedReducer = combineReducers({
   // เพิ่ม reducer ตรงนี้
   word,
-  decreaseNumberValue
+  decreaseNumberValue,
+  counter
 })
 
 const reducer = (state, action) => {
