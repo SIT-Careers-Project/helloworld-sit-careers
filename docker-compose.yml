@@ -63,7 +63,7 @@ services:
         restart: always
         container_name: db
         volumes:
-            - ./db:/var/www/html
+            - ./db:/var/lib/mysql
         ports:
             - "3306:3306"
         environment:
