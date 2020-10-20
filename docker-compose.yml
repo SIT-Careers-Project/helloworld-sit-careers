@@ -69,6 +69,8 @@ services:
         environment:
             MYSQL_DATABASE: helloworld
             MYSQL_ROOT_PASSWORD: root
+        networks:
+            - helloworldsitcareers
     
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:latest
@@ -81,6 +83,8 @@ services:
             MYSQL_ROOT_PASSWORD: root
         depends_on:
             - db
+        networks:
+            - helloworldsitcareers
             
 networks:
     helloworldsitcareers:
