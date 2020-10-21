@@ -19,4 +19,16 @@ class ProductController extends Controller
         $all_product = $this->product->getProduct();
         return response()->json($all_product, 200);
     }
+
+    public function create(Request $request)
+    {
+        $data = $request->all();
+        $create_product = $this->product->createProduct($data);
+        return response()->json(
+        [
+            $create_product,
+            'message' => "Create Product successful!"
+        ], 
+        200);
+    }
 }
